@@ -1,4 +1,13 @@
-.PHONY: mkdocs
+.PHONY: clean sdist upload pre-commit mkdocs
 
-mkdocs:
-	mkdocs gh-deploy --force
+sdist: clean
+	python3 setup.py sdist bdist_wheel --universa
+
+upload: clean
+	python3 setup.py upload
+
+clean:
+	rm -rf build dailycheckin.egg-info dist
+
+pre-commit:
+	pre-commit run --all-files
